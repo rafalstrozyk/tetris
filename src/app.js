@@ -1,6 +1,6 @@
-import './style.css'
-import moment from "moment";
-console.log('it Work')
+import './sass/index.scss';
+import moment from 'moment';
+console.log('it Work');
 
 document.addEventListener('DOMContentLoaded', () => {
 	const grid = document.querySelector('.grid');
@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	let nextRandom = 0;
 	let timerId;
 	let score = 0;
+	const time = 700;
 
 	// The tetrominoes
 	const lTetromino = [
@@ -120,8 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			currentPosition = 4;
 			draw();
 			displayShape();
-            addScore();
-            gameOver();
+			addScore();
+			gameOver();
 		}
 	}
 
@@ -171,6 +172,18 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (currentRotation === current.length) {
 			currentRotation = 0;
 		}
+		const isAtRightEdge = current.some(
+			(index) => (currentPosition + index) % width === width - 1
+		);
+		const isAtLeftEdge = current.some(
+			(index) => (currentPosition + index) % width === 0
+		);
+		if (isAtLeftEdge) {
+			currentPosition += 1;
+		}
+		if (isAtRightEdge) {
+			currentPosition -= 1;
+		}
 		current = theTetromiones[random][currentRotation];
 		draw();
 	}
@@ -207,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			timerId = null;
 		} else {
 			draw();
-			timerId = setInterval(moveDown, 1000);
+			timerId = setInterval(moveDown, time);
 			nextRandom = Math.floor(Math.random() * theTetromiones.length);
 			displayShape();
 		}
@@ -242,13 +255,43 @@ document.addEventListener('DOMContentLoaded', () => {
 				squares.forEach((cell) => grid.appendChild(cell));
 			}
 		}
-    }
-    
-    // game over
-    function gameOver() {
-        if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
-            ScoreDisplay.innerHTML = 'end'
-            clearInterval(timerId)
-        }
-    }
+	}
+
+	// game over
+	function gameOver() {
+		if (
+			current.some((index) =>
+				squares[currentPosition + index].classList.contains('taken')
+			)
+		) {
+			ScoreDisplay.innerHTML = 'end';
+			clearInterval(timerId);
+		}
+	}
+
+	document.getElementById('reset-button').addEventListener('click', () => {
+		squares.forEach((element, index) => {
+			element.classList.remove('tetromino');
+			if (index < 200) {
+				element.classList.remove('taken');
+			}
+		});
+		displaySquares.forEach((squares) => {
+			squares.classList.remove('tetromino');
+		});
+		if (timerId) {
+			clearInterval(timerId);
+			timerId = null;
+		} else {
+			draw();
+			timerId = setInterval(moveDown, time);
+			nextRandom = Math.floor(Math.random() * theTetromiones.length);
+			displayShape();
+		}
+		undraw();
+		score = 0;
+		currentPosition = 4;
+		displayIndex = 0;
+		ScoreDisplay.innerHTML = score;
+	});
 });
