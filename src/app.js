@@ -1,8 +1,9 @@
 import './sass/index.scss';
 import moment from 'moment';
+import video from './sourse/video/video.mp4'
 
 const colors = ['cyan', 'blue', 'orange', 'green', 'purple', 'red'];
-const boardColor = 'yellow';
+const boardColor = 'rgba(255, 224, 0, 0.8)';
 
 document.addEventListener('DOMContentLoaded', () => {
 	const grid = document.querySelector('.grid');
@@ -216,10 +217,12 @@ document.addEventListener('DOMContentLoaded', () => {
 		// remove any of a tetromino form the entire grid
 		displaySquares.forEach((squares) => {
 			squares.classList.remove('tetromino');
+			squares.style.background = boardColor;
 			
 		});
 		upNextTetrominoes[nextRandom].forEach((index) => {
 			displaySquares[displayIndex + index].classList.add('tetromino');
+			displaySquares[displayIndex + index].style.background = colors[nextRandomColor];
 		});
 	}
 
