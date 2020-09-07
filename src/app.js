@@ -1,9 +1,11 @@
 import './sass/index.scss';
 import moment from 'moment';
+import {iTetromino,lTetromino,oTetromino,tTetromino,zTetromino} from './js/tetromiones'
 import video from './sourse/video/video.mp4'
+import icon1 from './sourse/icons/controller-play.svg';
 
 const colors = ['cyan', 'blue', 'orange', 'green', 'purple', 'red'];
-const boardColor = 'rgba(255, 224, 0, 0.8)';
+const boardColor = 'rgba(255, 224, 0, 1)';
 
 document.addEventListener('DOMContentLoaded', () => {
 	const grid = document.querySelector('.grid');
@@ -18,41 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	const time = 700;
 
 	// The tetrominoes
-	const lTetromino = [
-		[1, width + 1, width * 2 + 1, 2],
-		[width, width + 1, width + 2, width * 2 + 2],
-		[1, width + 1, width * 2 + 1, width * 2],
-		[width, width * 2, width * 2 + 1, width * 2 + 2]
-	];
-
-	const zTetromino = [
-		[0, width, width + 1, width * 2 + 1],
-		[width + 1, width + 2, width * 2, width * 2 + 1],
-		[0, width, width + 1, width * 2 + 1],
-		[width + 1, width + 2, width * 2, width * 2 + 1]
-	];
-
-	const tTetromino = [
-		[1, width, width + 1, width + 2],
-		[1, width + 1, width + 2, width * 2 + 1],
-		[width, width + 1, width + 2, width * 2 + 1],
-		[1, width, width + 1, width * 2 + 1]
-	];
-
-	const oTetromino = [
-		[0, 1, width, width + 1],
-		[0, 1, width, width + 1],
-		[0, 1, width, width + 1],
-		[0, 1, width, width + 1]
-	];
-
-	const iTetromino = [
-		[1, width + 1, width * 2 + 1, width * 3 + 1],
-		[width, width + 1, width + 2, width + 3],
-		[1, width + 1, width * 2 + 1, width * 3 + 1],
-		[width, width + 1, width + 2, width + 3]
-	];
-
 	const theTetromiones = [
 		lTetromino,
 		zTetromino,
@@ -85,9 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			squares[currentPosition + index].style.background = 'none';
 		});
 	}
-
-	// make the tetrimino move down every second
-	// timerId = setInterval(moveDown, 1000);
 
 	// assign functions to keyCodes
 	function control(e) {
@@ -295,6 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 		displaySquares.forEach((squares) => {
 			squares.classList.remove('tetromino');
+			squares.style.background = boardColor;
 		});
 		if (timerId) {
 			clearInterval(timerId);
