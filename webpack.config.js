@@ -29,7 +29,7 @@ module.exports = {
 				use: ['babel-loader']
 			},
 			{
-				test: /\.(png|jpe?g|gif|svg)$/i,
+				test: /\.(svg|png|jpe?g|gif)$/i,
 				use: [
 					{
 						loader: 'file-loader'
@@ -39,14 +39,18 @@ module.exports = {
 			{
 				test: /\.(mov|mp4)$/,
 				use: [
-				  {
-					loader: 'file-loader',
-					options: {
-					  name: '[name].[ext]'
-					}  
-				  }
+					{
+						loader: 'file-loader',
+						options: {
+							name: '[name].[ext]'
+						}
+					}
 				]
-			  }
+			},
+			{
+				test: /\.css$/,
+				use: ['style-loader', 'css-loader', 'postcss-loader']
+			}
 		]
 	},
 	optimization: {
@@ -55,6 +59,7 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: path.resolve(__dirname, 'src', 'index.html')
-		})
+		}),
+		require('autoprefixer')
 	]
 };

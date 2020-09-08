@@ -4,9 +4,31 @@
 
 body {
 	margin: 0;
-    font-size: 16px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+}
+
+h1 {
+	text-align: center;
+	font-size: 35px;
+	color: #2A325C;
+	text-transform: uppercase;
+	font-weight: 100;
+	background: #107297;
+	height: 100%;
+	padding: 5px;
+	margin-top: -5px;
+
+}
+h3 {
+	font-size: 20px;
+	color: #fff;
+	font-weight: 100;
+	text-transform: uppercase;
+	background: #1d3037;
+	padding: 10px;
+	border-radius: 20px;
 }
 
 #back-video {
@@ -14,8 +36,8 @@ body {
 	right: 0;
 	bottom: 0;
 	min-width: 100%;
-    min-height: 100%;
-    z-index: -1;
+	min-height: 100%;
+	z-index: -1;
 }
 
 .container {
@@ -27,11 +49,10 @@ body {
 .grid {
 	width: 200px;
 	height: 400px;
-	background-color: rgba(255, 224, 0, 1);
-
+	background-color: #1d3037;
 	display: flex;
 	flex-wrap: wrap;
-	box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.3);
+	box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.5);
 }
 
 .grid div {
@@ -41,7 +62,7 @@ body {
 
 .tetromino {
 	background-color: blue;
-	box-shadow: inset 0 0 5px #000000;
+	box-shadow: inset 0 0 5px #2d241b;
 }
 
 .mini-grid {
@@ -50,8 +71,8 @@ body {
 	height: 80px;
 	display: flex;
 	flex-wrap: wrap;
-	background-color: rgba(255, 224, 0, 1);
-	box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.3);
+	background-color: #1d3037;
+	box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.5);
 	align-self: flex-start;
 }
 
@@ -62,6 +83,92 @@ body {
 
 .buttons-group {
 	display: flex;
-	flex-direction: column;
 	margin-right: 30px;
+
+	& button {
+		cursor: pointer;
+		background: none;
+		border: none;
+		outline: none;
+		transition: all 0.3s;
+
+		&:hover {
+			transform: scale(1.3);
+			& svg {
+				fill: #107297;
+			}
+		}
+
+		&:active {
+			transform: scale(0.8);
+		}
+
+		& svg {
+			transition: all 0.3s;
+			width: 40px;
+			height: 40px;
+			fill: #f1b00f;
+			stroke: #2d241b;
+			stroke-width: 1;
+		}
+	}
+}
+
+.buttons-keyboard {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 70px;
+	& span {
+		font-size: 20px;
+		font-weight: 500;
+		text-align: center;
+		color: #F1850F;
+		text-transform: uppercase;
+	}
+	& svg {
+		width: 30px;
+		height: 30px;
+		fill: #f1b00f;
+		stroke: #2d241b;
+		stroke-width: 1;
+		transition: all .1s;
+	}
+	& div {
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		
+
+		& span {
+			position: absolute;
+			&:first-child {
+				top: 110%;
+				right: -110%;
+			}
+			&:last-child {
+				bottom: 110%;
+				right: -60%;
+			}
+		}
+		& svg {
+			&:first-child {
+				margin-bottom: 5px;
+			}
+
+			&:last-child {
+				margin-top: 5px;
+			}
+		}
+	}
+
+	& #arrow-right {
+		margin-left: -10px;
+		margin-right: 10px;
+	}
+	& #arrow-left {
+		margin-right: -10px;
+		margin-left: 10px;
+		
+	}
 }

@@ -1,4 +1,5 @@
 const width = 10;
+const displayWidth = 4;
 
 export const lTetromino = [
     [1, width + 1, width * 2 + 1, 2],
@@ -33,4 +34,12 @@ export const iTetromino = [
     [width, width + 1, width + 2, width + 3],
     [1, width + 1, width * 2 + 1, width * 3 + 1],
     [width, width + 1, width + 2, width + 3]
+];
+
+export const upNextTetrominoes = [
+    [1, displayWidth + 1, displayWidth * 2 + 1, 2], //lTetromino
+    [0, displayWidth, displayWidth + 1, displayWidth * 2 + 1], // zTetromino
+    [1, displayWidth, displayWidth + 1, displayWidth + 2], //tTetromino
+    [0, 1, displayWidth, displayWidth + 1], // oTetromino
+    [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1] //iTetromino
 ];

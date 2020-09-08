@@ -1,11 +1,12 @@
 import './sass/index.scss';
 import moment from 'moment';
-import {iTetromino,lTetromino,oTetromino,tTetromino,zTetromino} from './js/tetromiones'
-import video from './sourse/video/video.mp4'
-import icon1 from './sourse/icons/controller-play.svg';
+import {iTetromino,lTetromino,oTetromino,tTetromino,zTetromino, upNextTetrominoes} from './js/tetromiones'
+import {playPauseButton, goLeftButton, goRightButton, goDownButton, goUpButton} from './js/UI';
+import video1 from './sourse/video/video.mp4'
+
 
 const colors = ['cyan', 'blue', 'orange', 'green', 'purple', 'red'];
-const boardColor = 'rgba(255, 224, 0, 1)';
+const boardColor = '#1D3037';
 
 document.addEventListener('DOMContentLoaded', () => {
 	const grid = document.querySelector('.grid');
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	let timerId;
 	let score = 0;
 	const time = 700;
+	let isPlay = false;
 
 	// The tetrominoes
 	const theTetromiones = [
@@ -55,15 +57,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// assign functions to keyCodes
 	function control(e) {
-		if (e.keyCode === 37) {
-			moveLeft();
-		} else if (e.keyCode === 38) {
-			rotate();
-		} else if (e.keyCode === 39) {
-			moveRight();
-		} else if (e.keyCode === 40) {
-			moveDown();
+		if(isPlay) {
+			if (e.keyCode === 37) {
+				moveLeft();
+				goLeftButton();
+			} else if (e.keyCode === 38) {
+				rotate();
+				goUpButton()
+			} else if (e.keyCode === 39) {
+				moveRight();
+				goRightButton();
+			} else if (e.keyCode === 40) {
+				moveDown();
+				goDownButton();
+			}
 		}
+		
 	}
 
 	document.addEventListener('keyup', control);
@@ -164,17 +173,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// show un-next tetromino in mini-grid display
 	const displaySquares = document.querySelectorAll('.mini-grid div');
-	const displayWidth = 4;
+	
 	let displayIndex = 0;
-
-	// the Tetrominos without rotations
-	const upNextTetrominoes = [
-		[1, displayWidth + 1, displayWidth * 2 + 1, 2], //lTetromino
-		[0, displayWidth, displayWidth + 1, displayWidth * 2 + 1], // zTetromino
-		[1, displayWidth, displayWidth + 1, displayWidth + 2], //tTetromino
-		[0, 1, displayWidth, displayWidth + 1], // oTetromino
-		[1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1] //iTetromino
-	];
 
 	// display the shape in the mini-grid display
 	function displayShape() {
@@ -192,10 +192,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// add functionality to the button
 	startButton.addEventListener('click', () => {
+		playPauseButton(isPlay)
 		if (timerId) {
 			clearInterval(timerId);
 			timerId = null;
+			isPlay = false;
 		} else {
+			isPlay = true
 			draw();
 			timerId = setInterval(moveDown, time);
 			nextRandom = Math.floor(Math.random() * theTetromiones.length);
@@ -249,6 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	document.getElementById('reset-button').addEventListener('click', () => {
+		playPauseButton(isPlay)
 		squares.forEach((element, index) => {
 			element.classList.remove('tetromino');
 			
@@ -262,9 +266,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			squares.style.background = boardColor;
 		});
 		if (timerId) {
+			isPlay = false;
 			clearInterval(timerId);
 			timerId = null;
 		} else {
+			isPlay = true;
 			draw();
 			timerId = setInterval(moveDown, time);
 			nextRandom = Math.floor(Math.random() * theTetromiones.length);

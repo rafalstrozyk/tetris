@@ -2,15 +2,26 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://i.icomoon.io/public/temp/e9b906f6ae/UntitledProject/style-svg.css"
+		/>
+		<script
+			defer
+			src="https://i.icomoon.io/public/temp/e9b906f6ae/UntitledProject/svgxuse.js"
+		></script>
 		<title>Tetris</title>
 	</head>
 	<body>
-        <video autoplay muted loop id="back-video">
-            <source src='./video.mp4' type="video/mp4">
-                Your browser does not support video.
-        </video>
+		<video autoplay muted loop id="back-video">
+			<source src="./video.mp4" type="video/mp4" />
+			Your browser does not support video.
+		</video>
 		<h1>Tetris!</h1>
 		<div class="container">
 			<h3>Score: <span id="score">0</span></h3>
@@ -18,8 +29,12 @@
 
 		<div class="container">
 			<div class="buttons-group">
-				<button id="start-button"><img src="./controller-play.svg" alt="play/pause"></button>
-				<button id="reset-button">Reset</button>
+				<button id="start-button">
+					<svg><use xlink:href="#icon-controller-play"></use></svg>
+				</button>
+				<button id="reset-button">
+					<svg><use xlink:href="#icon-controller-stop"></use></svg>
+				</button>
 			</div>
 
 			<div class="container">
@@ -254,6 +269,23 @@
 					<div></div>
 					<div></div>
 				</div>
+				<div>
+					<h3>You can play from keyboard</h3>
+					<div class="buttons-keyboard">
+						<span>Go left</span>
+						<svg id="arrow-left"><use xlink:href="#icon-arrow-long-left"></use></svg>
+						<div>
+							<span>Change position</span>
+							<svg id="arrow-up"><use xlink:href="#icon-arrow-long-up"></use></svg>
+							<svg id="arrow-down"><use xlink:href="#icon-arrow-long-down"></use></svg>
+							<span>Go down</span>
+						</div>
+	
+						<svg id="arrow-right"><use xlink:href="#icon-arrow-long-right"></use></svg>
+						<span>Go right</span>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 	</body>
